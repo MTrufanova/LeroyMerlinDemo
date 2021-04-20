@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         let searchVC = SearchViewController()
         let navigationController = UINavigationController(rootViewController: searchVC)
-        window?.rootViewController = navigationController
+        window?.rootViewController = TabBarController()
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
     }

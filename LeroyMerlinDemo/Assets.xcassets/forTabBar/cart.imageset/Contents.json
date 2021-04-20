@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "free-icon-shopping-cart-commercial-interface-symbol-outline-40368 (1).png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

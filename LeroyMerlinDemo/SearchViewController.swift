@@ -11,6 +11,7 @@ import SnapKit
 class SearchViewController: UIViewController {
     
     let viewBackColor = UIColor.lightGray.withAlphaComponent(0.2)
+    let product = Product()
     
     //MARK:- UI NavigationBar
     lazy var searchController = UISearchController(searchResultsController: nil)
@@ -70,7 +71,6 @@ class SearchViewController: UIViewController {
       let stack = UIStackView(arrangedSubviews: [catalogView, gardenView, lightView, toolView, buildingView, decorView, allView])
        stack.axis = .horizontal
        stack.spacing = 10
-     
        return stack
    }()
     
@@ -80,17 +80,25 @@ class SearchViewController: UIViewController {
     lazy var viewedLabel: UILabel = {
         let label = UILabel()
         label.text = "Недавно просмотренные"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.backgroundColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
         return label
+    }()
+    
+    lazy var viewedCollectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: Keys.recentlyViewed.rawValue)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        return collectionView
     }()
     
     //MARK: - UI Limited offer
     lazy var limitedLabel: UILabel = {
         let label = UILabel()
         label.text = "Предложение ограничено"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.backgroundColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
         return label
     }()
     
@@ -98,8 +106,8 @@ class SearchViewController: UIViewController {
     lazy var bestPriceLabel: UILabel = {
         let label = UILabel()
         label.text = "Лучшая цена"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.backgroundColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .black
         return label
     }()
     
@@ -125,7 +133,7 @@ class SearchViewController: UIViewController {
         menuScrollView.addSubview(catalogStack)
         allView.addSubview(moreStack)
         menuScrollView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(250)
+            make.top.equalToSuperview().offset(220)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         catalogStack.snp.makeConstraints { (make) in
@@ -143,6 +151,20 @@ class SearchViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+        
+        view.addSubview(viewedLabel)
+        viewedLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(menuScrollView.snp.bottom).offset(30)
+            make.leading.equalToSuperview().offset(10)
+        }
+        
+       /* view.addSubview(viewedCollectionView)
+        viewedCollectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(viewedLabel.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(200)
+          
+        }*/
        
     }
     
@@ -178,4 +200,18 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
        
     }
+}
+
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return product.recentlyViewed.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Keys.recentlyViewed.rawValue, for: indexPath) as! ProductCell
+        cell.setupCell(product.recentlyViewed[indexPath.item])
+        return cell
+    }
+    
+    
 }

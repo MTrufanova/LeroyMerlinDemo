@@ -17,6 +17,8 @@
 		465FD5ED262DBAA90084243D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5EC262DBAA90084243D /* Extension.swift */; };
 		465FD5F0262DE6F70084243D /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5EF262DE6F70084243D /* ProductCell.swift */; };
 		465FD5F4262DE89A0084243D /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5F3262DE89A0084243D /* ProductModel.swift */; };
+		465FD5FD262EBC6D0084243D /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5FC262EBC6D0084243D /* Keys.swift */; };
+		465FD600262EE31E0084243D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FD5FF262EE31E0084243D /* TabBarController.swift */; };
 		A18132E3219680AF5A3AEE33 /* Pods_LeroyMerlinDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F77801F3586A310A5D562E /* Pods_LeroyMerlinDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		465FD5EC262DBAA90084243D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		465FD5EF262DE6F70084243D /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		465FD5F3262DE89A0084243D /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		465FD5FC262EBC6D0084243D /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		465FD5FF262EE31E0084243D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		51F77801F3586A310A5D562E /* Pods_LeroyMerlinDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeroyMerlinDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AC6FF3433FAF8A206E7EE15 /* Pods-LeroyMerlinDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeroyMerlinDemo.debug.xcconfig"; path = "Target Support Files/Pods-LeroyMerlinDemo/Pods-LeroyMerlinDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,7 +77,9 @@
 			children = (
 				465FD5B2262B3A720084243D /* AppDelegate.swift */,
 				465FD5B4262B3A720084243D /* SceneDelegate.swift */,
+				465FD5FC262EBC6D0084243D /* Keys.swift */,
 				465FD5E8262DB74B0084243D /* SearchViewController.swift */,
+				465FD5FF262EE31E0084243D /* TabBarController.swift */,
 				465FD5F6262DE8A50084243D /* Model */,
 				465FD5EF262DE6F70084243D /* ProductCell.swift */,
 				465FD5EC262DBAA90084243D /* Extension.swift */,
@@ -226,7 +232,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				465FD5ED262DBAA90084243D /* Extension.swift in Sources */,
+				465FD5FD262EBC6D0084243D /* Keys.swift in Sources */,
 				465FD5B7262B3A720084243D /* MainViewController.swift in Sources */,
+				465FD600262EE31E0084243D /* TabBarController.swift in Sources */,
 				465FD5B3262B3A720084243D /* AppDelegate.swift in Sources */,
 				465FD5F0262DE6F70084243D /* ProductCell.swift in Sources */,
 				465FD5E9262DB74B0084243D /* SearchViewController.swift in Sources */,
