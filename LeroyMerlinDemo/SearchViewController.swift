@@ -86,8 +86,11 @@ class SearchViewController: UIViewController {
     }()
     
     lazy var viewedCollectionView: UICollectionView = {
-        let collectionView = UICollectionView()
-        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: Keys.recentlyViewed.rawValue)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -118,6 +121,7 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barcodeButton)
+        viewedCollectionView.register(ProductCell.self, forCellWithReuseIdentifier: Keys.recentlyViewed.rawValue)
         setupSearchBar()
         setupLayout()
         setupScroll()
@@ -133,8 +137,9 @@ class SearchViewController: UIViewController {
         menuScrollView.addSubview(catalogStack)
         allView.addSubview(moreStack)
         menuScrollView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(220)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.top.equalToSuperview().offset(230)
+            make.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         catalogStack.snp.makeConstraints { (make) in
             make.top.equalTo(menuScrollView.snp.top)
@@ -154,17 +159,17 @@ class SearchViewController: UIViewController {
         
         view.addSubview(viewedLabel)
         viewedLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(menuScrollView.snp.bottom).offset(30)
-            make.leading.equalToSuperview().offset(10)
+            make.top.equalTo(menuScrollView.snp.bottom).offset(50)
+            make.leading.equalToSuperview().offset(16)
         }
         
-       /* view.addSubview(viewedCollectionView)
+        view.addSubview(viewedCollectionView)
         viewedCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(viewedLabel.snp.bottom).offset(20)
+            make.top.equalTo(viewedLabel.snp.bottom).offset(40)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(200)
           
-        }*/
+        }
        
     }
     
@@ -202,7 +207,7 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return product.recentlyViewed.count
     }
@@ -211,6 +216,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Keys.recentlyViewed.rawValue, for: indexPath) as! ProductCell
         cell.setupCell(product.recentlyViewed[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width / 2.9, height: collectionView.frame.height)
     }
     
     

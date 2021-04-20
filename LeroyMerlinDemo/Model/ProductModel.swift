@@ -14,8 +14,8 @@ struct ProductModel {
     let rightPrice: String?
     let productName: String?
 }
-let rubsht = "₽/шт."
-let rubKor = "₽/кор."
+let rubsht = " ₽/ шт."
+let rubKor = " ₽/ кор."
 
 class Product {
 

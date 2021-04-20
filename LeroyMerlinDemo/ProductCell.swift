@@ -20,7 +20,7 @@ class ProductCell: UICollectionViewCell {
     lazy var leftPriceLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 14)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textAlignment = .left
         return label
     }()
@@ -28,15 +28,16 @@ class ProductCell: UICollectionViewCell {
     lazy var rightPriceLabel: UILabel = {
        let label = UILabel()
         label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 12)
+        label.font = .boldSystemFont(ofSize: 13)
         label.textAlignment = .left
         return label
     }()
     
     lazy var productNameLabel: UILabel = {
        let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 12)
+        label.textColor = .darkGray
+        label.font = .systemFont(ofSize: 13)
+        label.numberOfLines = 2
         label.textAlignment = .left
         return label
     }()
@@ -50,6 +51,7 @@ class ProductCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -70,17 +72,17 @@ class ProductCell: UICollectionViewCell {
         
         productImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(8)
-            make.leading.trailing.equalToSuperview().inset(8)
-            make.bottom.equalTo(priceStack.snp.top).offset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+            //make.bottom.equalTo(priceStack.snp.top).offset(16)
+            make.height.equalTo(productImage.snp.width)
         }
         priceStack.snp.makeConstraints { (make) in
-            make.top.equalTo(productImage.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(8)
+            make.top.equalTo(productImage.snp.bottom).offset(8)
+            make.leading.equalToSuperview().offset(16)
         }
         productNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(priceStack.snp.bottom).offset(16)
-            make.bottom.equalToSuperview().offset(8)
-            make.leading.trailing.equalToSuperview().inset(8)
+            make.top.equalTo(priceStack.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
         
         
