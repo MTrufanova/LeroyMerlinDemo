@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     
     lazy var searchController = UISearchController(searchResultsController: nil)
     
+    
+    
     lazy var barcodeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
@@ -34,6 +36,8 @@ class MainViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.reuseId)
         collectionView.register(CatalogCell.self, forCellWithReuseIdentifier: CatalogCell.reuseId)
+        collectionView.register(SeeAllCatalogCell.self, forCellWithReuseIdentifier: SeeAllCatalogCell.reuseId)
+        collectionView.register(FirstCatalogCell.self, forCellWithReuseIdentifier: FirstCatalogCell.reuseId)
         collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
 
         return collectionView
@@ -66,6 +70,7 @@ class MainViewController: UIViewController {
     
     func createDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, ProductModel>(collectionView: collectionView, cellProvider: { [self] (collectionView, indexPath, item) -> UICollectionViewCell? in
+            
             switch self.section[indexPath.section].type {
             case Keys.recentlyViewed.rawValue:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.reuseId, for: indexPath) as? ProductCell
@@ -82,9 +87,21 @@ class MainViewController: UIViewController {
                 return cell
             
             default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CatalogCell.reuseId, for: indexPath) as? CatalogCell
-                cell?.setupCell(product.catalogItems[indexPath.item])
-                return cell
+                switch indexPath.item {
+                case 0:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstCatalogCell.reuseId, for: indexPath) as? FirstCatalogCell
+                    cell?.setupCell(product.catalogItems[indexPath.item])
+                    return cell
+                case 6:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeeAllCatalogCell.reuseId, for: indexPath) as? SeeAllCatalogCell
+                    cell?.setupCell(product.catalogItems[indexPath.item])
+                    return cell
+                default:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CatalogCell.reuseId, for: indexPath) as? CatalogCell
+                    cell?.setupCell(product.catalogItems[indexPath.item])
+                    return cell
+                }
+              
             }
             
         })

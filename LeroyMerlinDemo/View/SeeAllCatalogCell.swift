@@ -1,21 +1,21 @@
 //
-//  CatalogCell.swift
+//  SeeAllCatalogCell.swift
 //  LeroyMerlinDemo
 //
-//  Created by msc on 27.04.2021.
+//  Created by msc on 29.04.2021.
 //
 
 import UIKit
 
-class CatalogCell: UICollectionViewCell {
+class SeeAllCatalogCell: UICollectionViewCell {
     
-    static let reuseId = "CatalogCell"
+    static let reuseId = "SeeAllCatalogCell"
     let viewBackColor = UIColor.lightGray.withAlphaComponent(0.2)
     
     lazy var catalogLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .medium)
-        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -26,35 +26,36 @@ class CatalogCell: UICollectionViewCell {
         return imageView
     }()
     
-    
+    lazy var moreStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [imageMenu, catalogLabel])
+        stack.axis = .vertical
+        stack.spacing = 8
+        
+        return stack
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-         setupLayout()
         layer.cornerRadius = 5
         backgroundColor = viewBackColor
-        catalogLabel.textColor = .black
+        setupLayout()
     }
     
     func setupCell(_ model: ProductModel)  {
         catalogLabel.text = model.productName
         imageMenu.image = model.productImage
     }
+    
     private func setupLayout() {
-        contentView.addSubview(catalogLabel)
-        contentView.addSubview(imageMenu)
-        
-        catalogLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(10)
-            make.leading.trailing.equalToSuperview().inset(10)
-        }
-        imageMenu.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.width.equalTo(70)
-        }
-        
+                    contentView.addSubview(moreStack)
+                    moreStack.snp.makeConstraints { (make) in
+                        make.leading.trailing.equalToSuperview()
+                        //make.centerX.equalToSuperview()
+                        make.centerY.equalToSuperview()
+                    }
     }
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
