@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     let viewBackColor = UIColor.lightGray.withAlphaComponent(0.2)
     let product = Product()
     
+    
     //MARK:- UI NavigationBar
     lazy var searchController = UISearchController(searchResultsController: nil)
     
@@ -54,7 +55,7 @@ class SearchViewController: UIViewController {
      
    lazy var moreLabel: UILabel = {
        let label = UILabel()
-       label.font = .systemFont(ofSize: 14, weight: .medium)
+       label.font = .systemFont(ofSize: 15, weight: .medium)
        label.text = "Смотреть всё"
        label.textColor = .black
        return label
@@ -74,7 +75,7 @@ class SearchViewController: UIViewController {
        return stack
    }()
     
-    lazy var menuScrollView = UIScrollView()
+    lazy var catalogScrollView = UIScrollView()
     
     //MARK: - UI Recently viewed
     lazy var viewedLabel: UILabel = {
@@ -91,19 +92,23 @@ class SearchViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: Keys.recentlyViewed.rawValue)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
     }()
     
     //MARK: - UI Limited offer
-    lazy var limitedLabel: UILabel = {
+    lazy var limitedLabel = createLabel(labelText: "Предложение ограничено")
+        /*: UILabel = {
         let label = UILabel()
         label.text = "Предложение ограничено"
         label.font = .boldSystemFont(ofSize: 20)
         label.textColor = .black
         return label
-    }()
+    }()*/
+    
+    lazy var limitedCollectionView = createCollection()
     
     //MARK: - UI Best price
     lazy var bestPriceLabel: UILabel = {
@@ -121,7 +126,6 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barcodeButton)
-        viewedCollectionView.register(ProductCell.self, forCellWithReuseIdentifier: Keys.recentlyViewed.rawValue)
         setupSearchBar()
         setupLayout()
         setupScroll()
@@ -133,18 +137,18 @@ class SearchViewController: UIViewController {
     }
     
     func setupLayout() {
-        view.addSubview(menuScrollView)
-        menuScrollView.addSubview(catalogStack)
+        view.addSubview(catalogScrollView)
+        catalogScrollView.addSubview(catalogStack)
         allView.addSubview(moreStack)
-        menuScrollView.snp.makeConstraints { (make) in
+        catalogScrollView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(230)
             make.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         catalogStack.snp.makeConstraints { (make) in
-            make.top.equalTo(menuScrollView.snp.top)
-            make.leading.trailing.equalTo(menuScrollView.contentSize)
-            make.bottom.equalTo(menuScrollView.safeAreaLayoutGuide)
+            make.top.equalTo(catalogScrollView.snp.top)
+            make.leading.trailing.equalTo(catalogScrollView.contentSize)
+            make.bottom.equalTo(catalogScrollView.safeAreaLayoutGuide)
         }
         
         allView.snp.makeConstraints { (make) in
@@ -159,7 +163,7 @@ class SearchViewController: UIViewController {
         
         view.addSubview(viewedLabel)
         viewedLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(menuScrollView.snp.bottom).offset(50)
+            make.top.equalTo(catalogScrollView.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(16)
         }
         
@@ -170,12 +174,18 @@ class SearchViewController: UIViewController {
             make.height.equalTo(200)
           
         }
+        
+        view.addSubview(limitedLabel)
+        limitedLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(viewedCollectionView.snp.bottom).offset(50)
+            make.leading.equalToSuperview().offset(16)
+        }
        
     }
     
     private func setupScroll() {
-        menuScrollView.contentSize = CGSize(width: catalogStack.frame.size.width, height: catalogStack.frame.size.height)
-        menuScrollView.showsHorizontalScrollIndicator = false
+        catalogScrollView.contentSize = CGSize(width: catalogStack.frame.size.width, height: catalogStack.frame.size.height)
+        catalogScrollView.showsHorizontalScrollIndicator = false
     }
     
     private func customStatusBar() {
@@ -189,7 +199,7 @@ class SearchViewController: UIViewController {
     }
     
     private func setupSearchBar() {
-        searchController.searchResultsUpdater = self
+       // searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchBar.placeholder = "Поиск"
         searchController.searchBar.searchTextField.backgroundColor = .white
@@ -201,11 +211,11 @@ class SearchViewController: UIViewController {
     
 }
 
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+//extension SearchViewController: UISearchResultsUpdating {
+   // func updateSearchResults(for searchController: UISearchController) {
        
-    }
-}
+   // }
+//}
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

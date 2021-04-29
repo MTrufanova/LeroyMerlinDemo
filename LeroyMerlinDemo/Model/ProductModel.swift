@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct ProductModel {
+struct ProductModel: Hashable {
     let productImage: UIImage?
     let leftPrice: String?
     let rightPrice: String?
@@ -19,7 +19,7 @@ let rubKor = " ₽/ кор."
 
 class Product {
 
-var recentlyViewed: [ProductModel] = {
+let recentlyViewed: [ProductModel] = {
 let first = ProductModel(productImage: UIImage(named: "ванная"), leftPrice: "118", rightPrice: rubsht, productName: "Средство для акриловых ванн")
 let second = ProductModel(productImage: UIImage(named: "дрель"), leftPrice: "7 788", rightPrice: rubsht, productName: "Перфоратор Энерго-Пром")
 let third = ProductModel(productImage: UIImage(named: "керамогранит"), leftPrice: "730,", rightPrice: "35 \(rubsht)", productName: "Керамогранит Euroceramika Карвалио 15х60 см")
@@ -32,7 +32,7 @@ let limitedOffer: [ProductModel] = {
 let six = ProductModel(productImage: UIImage(named: "ламинат"), leftPrice: "1 519,", rightPrice: "63 \(rubKor)", productName: "Ламинат Tarkett «Хартли» 33 класс")
 let seven = ProductModel(productImage: UIImage(named: "люстра"), leftPrice: "5 699", rightPrice: rubsht, productName: "Светильник потолочный Evrosvet")
 let eight = ProductModel(productImage: UIImage(named: "обои"), leftPrice: "1 068", rightPrice: rubsht, productName: "Обои флизелиновые Vagnerplast Unplugged, золото")
-let nine = ProductModel(productImage: UIImage(systemName: "обои2"), leftPrice: "1 737", rightPrice: rubsht, productName: "Обои флизелиновые Erismann Paradiso серые")
+    let nine = ProductModel(productImage: UIImage(named: "обои-2"), leftPrice: "1 737", rightPrice: rubsht, productName: "Обои флизелиновые Erismann Paradiso серые")
 let ten = ProductModel(productImage: UIImage(named: "пена"), leftPrice: "303", rightPrice: rubsht, productName: "Пена монтажная пистолетная 750 мл")
     return [six, seven, eight, nine, ten]
 }()
@@ -48,4 +48,17 @@ let sixteen = ProductModel(productImage: UIImage(named: "шуруповерт"),
     return [eleven, twelve, thirteen, fourteen, fifteen, sixteen]
 }()
 
+    let catalogItems: [ProductModel] = {
+        let catalog = ProductModel(productImage: UIImage(systemName: "list.dash")?.withTintColor(.white, renderingMode: .alwaysOriginal), leftPrice: "", rightPrice: "", productName: "Каталог")
+        let garden = ProductModel(productImage:  UIImage(named: "garden"), leftPrice: "", rightPrice: "", productName: "Сад")
+        let light = ProductModel(productImage: UIImage(named: "light"), leftPrice: "", rightPrice: "", productName: "Освещение")
+        let tool = ProductModel(productImage: UIImage(named: "tool"), leftPrice: "", rightPrice: "", productName: "Инструменты")
+        let build = ProductModel(productImage: UIImage(named: "building"), leftPrice: "", rightPrice: "", productName: "Строймате- риалы")
+        let decor = ProductModel(productImage: UIImage(named: "decor"), leftPrice: "", rightPrice: "", productName: "Декор")
+        let lastCatalogItem = ProductModel(productImage: UIImage(named: "more"), leftPrice: "", rightPrice: "", productName: "Смотреть всё")
+        return [catalog, garden, light, tool, build, decor, lastCatalogItem]
+    }()
+    
+    
+    
 }

@@ -11,7 +11,7 @@ import UIKit
 func createViewMenu(nameLabel: String, textColor: UIColor, backgroundColor: UIColor, image: UIImage, wh: Int) -> UIView {
     
     let label = UILabel()
-    label.font = .systemFont(ofSize: 14, weight: .medium)
+    label.font = .systemFont(ofSize: 15, weight: .medium)
     label.text = nameLabel
     label.numberOfLines = 0
     label.textColor = textColor

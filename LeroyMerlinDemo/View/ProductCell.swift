@@ -10,6 +10,8 @@ import SnapKit
 
 class ProductCell: UICollectionViewCell {
     
+    static let reuseId = "reuseID"
+    
     //MARK:- UI
     lazy var productImage: UIImageView = {
         let imageView = UIImageView()
@@ -72,17 +74,16 @@ class ProductCell: UICollectionViewCell {
         
         productImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
-            //make.bottom.equalTo(priceStack.snp.top).offset(16)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(productImage.snp.width)
         }
         priceStack.snp.makeConstraints { (make) in
             make.top.equalTo(productImage.snp.bottom).offset(8)
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(8)
         }
         productNameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(priceStack.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(8)
         }
         
         

@@ -8,6 +8,7 @@
 import Foundation
 
 enum Keys: String {
+    case catalogMenu
     case recentlyViewed
     case limitedOffer
     case bestPrice
